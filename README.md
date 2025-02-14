@@ -1,121 +1,94 @@
-# Trademark Image & Data Extraction Pipeline
+# TradeMark Image OCR & AI Processing
 
-## **Overview**
-This project extracts **trademark application data** from [data.gov.sg](https://data.gov.sg/datasets/d_56058f817dc3708f8b97e0876335ac66/view) and:
-- Saves trademark **text data** in CSV format.
-- **Downloads and stores trademark images** for further processing.
-- Processes **key fields** such as trademark name, owner, status, and image.
+## Project Overview
+I started this project to explore multimodal AI processing for extracting text from trademark images. Initially, I thought of using traditional OCR, but I quickly realized that some images had stylized fonts, distortions, and even non-Latin characters.
 
----
-
-## **1️⃣ Setup Instructions**
-### **1.1 Install Dependencies**
-Ensure you have **Python 3.9+** installed. Then, run:
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_GITHUB_USERNAME/govtech-multimodal-ai.git
-cd govtech-multimodal-ai
-
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-**Folder Structure**
-govtech-multimodal-ai/
-│── src/                     
-│   ├── data_extraction.py  # Main script
-│── trademark_images/       # Folder for downloaded images
-│── README.md               # Documentation
-│── requirements.txt        # Dependencies
-
+To improve accuracy, I researched different CPU and GPU-based models to process images and extract text. This repository contains my journey through different approaches.
 
 ---
 
-## **6️⃣ Solution Approach (Work in Progress)**
-### **6.1 Initial Analysis**
-At the beginning of this project, I analyzed the problem statement and identified that:
-- **Processing trademark images accurately** would require a **GPU** for deep learning models.
-- However, due to limited GPU availability on my Mac M2, I decided to **continue with CPU-based processing first**.
-- The initial goal was to **extract raw trademark data** before implementing advanced image processing.
+## 1. My Initial Approach: CPU Processing
+At first, I wanted to test image OCR using only CPU resources. Since my laptop does not have a GPU, I looked for efficient methods to extract text without requiring heavy computation.
 
----
+### Steps I Took
+- I started with Tesseract OCR, which is lightweight and works well for simple images.
+- I then explored ResNet18 feature extraction to analyze image embeddings.
+- I realized that OCR struggled with Chinese characters and complex fonts, so I had to refine the approach.
+- I added Faiss indexing to store extracted image features for similarity searches.
 
-### **6.2 Setting Up the Project**
-- **Created a structured repository** with separate folders for code, images, and extracted data.
-- Implemented a **Python script** (`src/data_extraction.py`) to call the **IPOS Trademark Applications API** from [data.gov.sg](https://data.gov.sg/datasets/d_56058f817dc3708f8b97e0876335ac66/view).
-- Explored the API documentation and identified that the data is **indexed by**:
-  - **`lodgement_date`** (date the trademark was lodged)
-  - **`count`** (number of applications on that date)
-  - **`items`** (list of trademark applications)
-
----
-
-### **6.3 Extracting Initial Data**
-- First, I attempted to **extract data for** `2024-01-01` but **found no available records**.
-- I then retried with **`2018-01-01`**, successfully retrieving **4 trademark records**.
-- From this data, I:
-  - **Downloaded 4 trademark images** and saved them in `trademark_images/`.
-  - **Extracted key trademark details** (application number, mark name, description, applicant info, goods & services, image URL) into `trademark_extracted_data.csv`.
-  - **UPDATE** I extracted 24 more images from 2018-01-02 so i have more data and iamges to work with, instead of just 4.
-
----
-
-### **6.4 CPU vs GPU Processing Branches**
-To experiment both CPU-based and GPU-accelerated processing, I decided to create two branches: `cpu-processing` and `gpu-processing`
-
-#### **🔹 `cpu-processing` **
-- Uses **only CPU** for **data extraction, text processing, and basic image handling**.
-- Runs efficiently on **Mac M2, Intel CPUs, and cloud-based CPUs**.
-- No GPU dependencies needed.
-- First commit: 13/28 accurate (able to extract out words, ignoring some extra characters outputted)
-- Second commit: Improved OCR preprocessing with adaptive thresholding, Gaussian blur, and character whitelist; increased accuracy from 13/28 to 15/28
-- Third commit: Forgot that I had to account for chinese charcters too (brew install tesseract-lang)
-- I realised that some of the outputs are "a
-LES
-ay 13pm
-VG
-vo 2 WW IN
-BA las ef
-any iz
-a is S sf ms
-Bx
-a
-44tee s4 fL
-TtsIPNA
-AYE
-eModernChinaTeaShop" when the actual word is ModernChinaTeaShop so i tested it out on deepseek to see if it could derive the Mark Name with the garbage that comes with the output
+### Challenges Faced in CPU Processing
+- OCR was not accurate enough – many extracted texts had errors.
+- Processing speed was fine, but text extraction quality needed improvement.
+- I realised that some of the outputs have the actual word, but there are many redundant words like for example: "a LES ay 13pm VG vo 2 WW IN BA las ef any iz a is S sf ms Bx a 44tee s4 fL TtsIPNA AYE eModernChinaTeaShop" when the actual word is ModernChinaTeaShop so i tested it out on deepseek to see if it could derive the Mark Name with the garbage that comes with the output: 
 ![DeepSeek Trial Logo](./trademark_images/deepseek_trial.png)
-As seen, using deepseek works, so i tried to incorporate deepseek into my model. However, while running the output, it took way too much time (much more than allowed) so i decided that i had to proceed with gpu-processing 
+As seen, using deepseek works, so i tried to incorporate deepseek into my model. However, while running the output and after many iterations of trying different versions of deepseek from hugging face, it took way too much time to process the output and clean up the final text (much more than allowed) so i decided that proceeding with gpu-processing will be a better option
 
-## GPU-Based Image Processing with InternVL2
+#### Accuracy achieved (CPU): Defined as getting the output without extra characters
+- First try: 13/28
+- Second try (Improved OCR preprocessing with adaptive thresholding, Gaussian blur, and character whitelist): 15/28
+- Third try (Forgot that I had to account for chinese charcters too (brew install tesseract-lang)): 15/28 no change
+---
 
-### 1. Motivation for Using GPU
-- Wanted to explore a more advanced, GPU-based approach for trademark image processing to improve accuracy and efficiency.
-- CPU-based methods were functional but had limitations in speed and recognition quality for complex images.
+## 2. My Next Step: GPU-Based Processing
+Since CPU-based OCR was not sufficient, I researched models that use GPU acceleration for better text extraction. I came across InternVL2 and found that it excels in multimodal vision-language tasks.
 
-### 2. Choosing InternVL2
-- Found **InternVL2** as a strong multimodal model with robust vision-language understanding capabilities.
-- **Key strengths:**
-  - **State-of-the-art accuracy** in image-text understanding.
-  - **Cloud-based inference** available on Hugging Face, allowing easy access without requiring a local GPU.
+### Why I Chose InternVL2
+- Better accuracy compared to traditional OCR.
+- Handles both English and Chinese characters well.
+- Leverages deep learning for complex images rather than just template matching.
 
-### 3. Running InternVL2 on Hugging Face
-- Used the **free version** of InternVL2 hosted on Hugging Face.
-- Implemented the **Gradio API** to send image data for processing.
-- Encountered GPU quota limitations during execution but was able to process some images.
+### How I Set It Up
+1. I first tested InternVL2 on Hugging Face’s free API, but it had a strict quota.
+2. I set up a Docker environment to later run on a GPU-powered machine.
+3. My friend offered to test it on her local GPU, so I modified the code accordingly.
 
-### 4. Accuracy Results
-- Achieved an accuracy of **.../28** images correctly extracted. *(To be updated after further testing.)*
-
-
-
-#### **Running CPU Processing**
-To process trademarks:
-```bash
-python src/cpu_processing.py
+#### Accuracy achieved: (To be added later)
 
 ---
 
+## 3. Running This Project
+Depending on whether you have CPU or GPU, you can run the project in different ways.
+
+### Option 1: Running on CPU
+```
+python src/cpu_processing.py
+```
+Works for basic OCR, but not as accurate.
+
+### Option 2: Running on GPU (Local)
+```
+python src/gpu_processing.py
+```
+Requires InternVL2 locally and a CUDA-enabled GPU.
+
+### Option 3: Running on GPU (Docker)
+If using a Docker container on a GPU machine:
+```
+docker build -t gpu-processing .
+docker run --gpus all gpu-processing
+```
+
+---
+
+## 4. Next Steps & Improvements
+- Fine-tune model to improve accuracy for distorted images.
+- Compare InternVL2 with other multimodal models like DeepSeek-VL.
+- Optimize runtime performance for large-scale trademark analysis.
+
+---
+
+## 5. Dependencies (requirements.txt)
+If you are running this on your own machine, make sure to install:
+```
+torch
+transformers
+Pillow
+numpy
+opencv-python
+tesseract
+faiss-cpu
+huggingface_hub
+gradio_client
+```
+
+---
