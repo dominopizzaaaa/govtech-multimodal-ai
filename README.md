@@ -42,8 +42,11 @@ Since CPU-based OCR was not sufficient, I researched models that use GPU acceler
 2. I set up a Docker environment to later run on a GPU-powered machine.
 3. My friend offered to test it on her local GPU, so I modified the code accordingly.
 
-#### Accuracy achieved: (To be added later)
+When I ran on my first try, I was so surprised at the accuracy and ability of InternVL to decipher not only the words, but also the background. For example, it was able to tell the background was depicting great wall of china, which I found very fascinating (maybe because I was using CPU the whole time to try to figure ut the words which is much less effective at doing so). It was also able to tell, output and translate korean words and find the company. The accuracy was so much higher than that of CPU as seen below. As this is my first time using InternVL, I did not change the output and the defaulted output was given to me, which was a description of the image. I plan to change the prompt so that I will be able to obtain keywords and the mark name to be able to query the data later for the second iteration.
 
+#### Accuracy achieved: (To be added later)
+- First try: 25/28
+- Second try (changed input prompt)
 ---
 
 ## 3. Running This Project
