@@ -11,7 +11,7 @@ IMAGE_FOLDER = "trademark_images"
 os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
 # Function to fetch trademark data for a given date
-def fetch_trademark_data(lodgement_date="2018-01-01"):
+def fetch_trademark_data(lodgement_date="2018-01-02"):
     params = {"lodgement_date": lodgement_date}
     response = requests.get(API_URL, params=params)
 
@@ -101,7 +101,7 @@ def save_to_csv(data, filename="trademark_extracted_data.csv"):
 
 # Run script for a specific date
 if __name__ == "__main__":
-    date_to_fetch = "2018-01-01"  # Change as needed
+    date_to_fetch = "2018-01-02"  # Change as needed
     records = fetch_trademark_data(date_to_fetch)
     processed_data = process_trademark_data(records)
     save_to_csv(processed_data)
