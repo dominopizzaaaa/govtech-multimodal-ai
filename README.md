@@ -63,4 +63,48 @@ At the beginning of this project, I analyzed the problem statement and identifie
 
 ---
 
-### **6.4 
+### **6.4 CPU vs GPU Processing Branches**
+To experiment both CPU-based and GPU-accelerated processing, I decided to create two branches: `cpu-processing` and `gpu-processing`
+
+#### **🔹 `cpu-processing` **
+- Uses **only CPU** for **data extraction, text processing, and basic image handling**.
+- Runs efficiently on **Mac M2, Intel CPUs, and cloud-based CPUs**.
+- No GPU dependencies needed.
+- First commit: 16/28 accurate (able to extract out words, ignoring some extra characters outputted)
+- Second commit: Improved OCR preprocessing with adaptive thresholding, Gaussian blur, and character whitelist; increased accuracy from 16/28 to 18/28
+- Third commit: Forgot that I had to account for chinese charcters too (brew install tesseract-lang)
+- I realised that some of the outputs are "a
+LES
+ay 13pm
+VG
+vo 2 WW IN
+BA las ef
+any iz
+a is S sf ms
+Bx
+a
+44tee s4 fL
+TtsIPNA
+AYE
+eModernChinaTeaShop" when the actual word is ModernChinaTeaShop so i tested it out on deepseek to see if it could derive the Mark Name with the garbage that comes with the output
+![DeepSeek Trial Logo](./trademark_images/deepseek_trial.png)
+As seen, using deepseek works, so i tried to incorporate deepseek into my model. However, while running the output, it took way too much time (much more than allowed) so i decided that i had to proceed with gpu-processing 
+
+#### **🔹 `gpu-processing`**
+
+---
+
+### **6.5 CPU-Based Processing**
+This branch (`cpu-processing`) implements **CPU-based** trademark processing using:
+1. **OCR (`Tesseract-OCR`)** → Extracts text from trademark images.
+2. **`OpenCV`** → Preprocesses images for better OCR accuracy.
+3. **ResNet18 (from `torchvision`)** → Extracts image **feature vectors**.
+4. **`faiss-cpu`** → Stores images in a **vector database** for similarity search.
+
+#### **Running CPU Processing**
+To process trademarks:
+```bash
+python src/cpu_processing.py
+
+---
+
