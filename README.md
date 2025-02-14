@@ -90,16 +90,27 @@ eModernChinaTeaShop" when the actual word is ModernChinaTeaShop so i tested it o
 ![DeepSeek Trial Logo](./trademark_images/deepseek_trial.png)
 As seen, using deepseek works, so i tried to incorporate deepseek into my model. However, while running the output, it took way too much time (much more than allowed) so i decided that i had to proceed with gpu-processing 
 
-#### **🔹 `gpu-processing`**
+## GPU-Based Image Processing with InternVL2
 
----
+### 1. Motivation for Using GPU
+- Wanted to explore a more advanced, GPU-based approach for trademark image processing to improve accuracy and efficiency.
+- CPU-based methods were functional but had limitations in speed and recognition quality for complex images.
 
-### **6.5 CPU-Based Processing**
-This branch (`cpu-processing`) implements **CPU-based** trademark processing using:
-1. **OCR (`Tesseract-OCR`)** → Extracts text from trademark images.
-2. **`OpenCV`** → Preprocesses images for better OCR accuracy.
-3. **ResNet18 (from `torchvision`)** → Extracts image **feature vectors**.
-4. **`faiss-cpu`** → Stores images in a **vector database** for similarity search.
+### 2. Choosing InternVL2
+- Found **InternVL2** as a strong multimodal model with robust vision-language understanding capabilities.
+- **Key strengths:**
+  - **State-of-the-art accuracy** in image-text understanding.
+  - **Cloud-based inference** available on Hugging Face, allowing easy access without requiring a local GPU.
+
+### 3. Running InternVL2 on Hugging Face
+- Used the **free version** of InternVL2 hosted on Hugging Face.
+- Implemented the **Gradio API** to send image data for processing.
+- Encountered GPU quota limitations during execution but was able to process some images.
+
+### 4. Accuracy Results
+- Achieved an accuracy of **.../28** images correctly extracted. *(To be updated after further testing.)*
+
+
 
 #### **Running CPU Processing**
 To process trademarks:
