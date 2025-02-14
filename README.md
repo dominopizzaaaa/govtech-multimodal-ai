@@ -70,6 +70,8 @@ To experiment both CPU-based and GPU-accelerated processing, I decided to create
 - Uses **only CPU** for **data extraction, text processing, and basic image handling**.
 - Runs efficiently on **Mac M2, Intel CPUs, and cloud-based CPUs**.
 - No GPU dependencies needed.
+- First commit: 16/28 accurate (able to extract out words, ignoring some extra characters outputted)
+- Second commit: 
 
 #### **🔹 `gpu-processing`**
 - Uses **GPU acceleration** for **image processing, OCR, and deep learning-based indexing**.
