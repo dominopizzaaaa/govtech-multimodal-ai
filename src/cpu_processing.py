@@ -51,16 +51,20 @@ def extract_text(image_path):
     # Convert to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Apply Gaussian blur to remove noise
+    # Remove noise using Gaussian blur
     gray = cv2.GaussianBlur(gray, (3, 3), 0)
 
-    # Apply Adaptive Thresholding (Better for OCR)
+    # Apply morphological operations to remove background patterns
+    kernel = np.ones((3, 3), np.uint8)
+    gray = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel)
+
+    # Adaptive Thresholding to enhance text
     gray = cv2.adaptiveThreshold(
-        gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+        gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 5
     )
 
-    # Use Tesseract OCR with improved config
-    custom_config = "--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    # Tesseract OCR configuration
+    custom_config = "--psm 6 --oem 3 -l eng -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     text = pytesseract.image_to_string(gray, config=custom_config)
 
     return text.strip()
