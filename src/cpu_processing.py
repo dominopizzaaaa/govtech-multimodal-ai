@@ -48,14 +48,23 @@ def extract_text(image_path):
     if image is None:
         return None
 
-    # Preprocessing
+    # Convert to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.GaussianBlur(gray, (5, 5), 0)  # Reduce noise
-    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]  # Thresholding
 
-    # OCR
-    text = pytesseract.image_to_string(gray, config="--psm 6")  # PSM 6: Assume a uniform block of text
+    # Apply Gaussian blur to remove noise
+    gray = cv2.GaussianBlur(gray, (3, 3), 0)
+
+    # Apply Adaptive Thresholding (Better for OCR)
+    gray = cv2.adaptiveThreshold(
+        gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+    )
+
+    # Use Tesseract OCR with improved config
+    custom_config = "--psm 6 --oem 3 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    text = pytesseract.image_to_string(gray, config=custom_config)
+
     return text.strip()
+
 
 
 # Process Images: OCR + Feature Extraction
