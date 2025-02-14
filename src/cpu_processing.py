@@ -47,9 +47,16 @@ def extract_text(image_path):
     image = cv2.imread(image_path)
     if image is None:
         return None
+
+    # Preprocessing
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    text = pytesseract.image_to_string(gray)
+    gray = cv2.GaussianBlur(gray, (5, 5), 0)  # Reduce noise
+    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]  # Thresholding
+
+    # OCR
+    text = pytesseract.image_to_string(gray, config="--psm 6")  # PSM 6: Assume a uniform block of text
     return text.strip()
+
 
 # Process Images: OCR + Feature Extraction
 def process_images():
