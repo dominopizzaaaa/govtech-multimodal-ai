@@ -72,13 +72,25 @@ To experiment both CPU-based and GPU-accelerated processing, I decided to create
 - No GPU dependencies needed.
 - First commit: 16/28 accurate (able to extract out words, ignoring some extra characters outputted)
 - Second commit: Improved OCR preprocessing with adaptive thresholding, Gaussian blur, and character whitelist; increased accuracy from 16/28 to 18/28
-- Third commit: Forgot that I had to account for chiense charcters too (brew install tesseract-lang)
-- 
+- Third commit: Forgot that I had to account for chinese charcters too (brew install tesseract-lang)
+- I realised that some of the outputs are "a
+LES
+ay 13pm
+VG
+vo 2 WW IN
+BA las ef
+any iz
+a is S sf ms
+Bx
+a
+44tee s4 fL
+TtsIPNA
+AYE
+eModernChinaTeaShop" when the actual word is ModernChinaTeaShop so i tested it out on deepseek to see if it could derive the Mark Name with the garbage that comes with the output
+![DeepSeek Trial Logo](./trademark_images/deepseek_trial.png)
+As seen, using deepseek works, so i tried to incorporate deepseek into my model. However, while running the output, it took way too much time (much more than allowed) so i decided that i had to proceed with gpu-processing 
 
 #### **🔹 `gpu-processing`**
-- Uses **GPU acceleration** for **image processing, OCR, and deep learning-based indexing**.
-- Optimized for **NVIDIA GPUs (CUDA) or Apple MPS (Metal Performance Shaders)**.
-- Requires **PyTorch with GPU support** and `auto-gptq` for model optimization.
 
 ---
 
