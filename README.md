@@ -70,8 +70,8 @@ To experiment both CPU-based and GPU-accelerated processing, I decided to create
 - Uses **only CPU** for **data extraction, text processing, and basic image handling**.
 - Runs efficiently on **Mac M2, Intel CPUs, and cloud-based CPUs**.
 - No GPU dependencies needed.
-- First commit: 16/28 accurate (able to extract out words, ignoring some extra characters outputted)
-- Second commit: Improved OCR preprocessing with adaptive thresholding, Gaussian blur, and character whitelist; increased accuracy from 16/28 to 18/28
+- First commit: 13/28 accurate (able to extract out words, ignoring some extra characters outputted)
+- Second commit: Improved OCR preprocessing with adaptive thresholding, Gaussian blur, and character whitelist; increased accuracy from 13/28 to 15/28
 - Third commit: Forgot that I had to account for chinese charcters too (brew install tesseract-lang)
 - I realised that some of the outputs are "a
 LES
