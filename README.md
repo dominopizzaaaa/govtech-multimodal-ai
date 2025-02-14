@@ -59,6 +59,7 @@ At the beginning of this project, I analyzed the problem statement and identifie
 - From this data, I:
   - **Downloaded 4 trademark images** and saved them in `trademark_images/`.
   - **Extracted key trademark details** (application number, mark name, description, applicant info, goods & services, image URL) into `trademark_extracted_data.csv`.
+  - **UPDATE** I extracted 24 more images from 2018-01-02 so i have more data and iamges to work with, instead of just 4.
 
 ---
 
