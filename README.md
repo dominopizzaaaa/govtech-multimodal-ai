@@ -62,4 +62,32 @@ At the beginning of this project, I analyzed the problem statement and identifie
 
 ---
 
-### **6.4 
+### **6.4 CPU vs GPU Processing Branches**
+To experiment both CPU-based and GPU-accelerated processing, I decided to create two branches: `cpu-processing` and `gpu-processing`
+
+#### **🔹 `cpu-processing` **
+- Uses **only CPU** for **data extraction, text processing, and basic image handling**.
+- Runs efficiently on **Mac M2, Intel CPUs, and cloud-based CPUs**.
+- No GPU dependencies needed.
+
+#### **🔹 `gpu-processing`**
+- Uses **GPU acceleration** for **image processing, OCR, and deep learning-based indexing**.
+- Optimized for **NVIDIA GPUs (CUDA) or Apple MPS (Metal Performance Shaders)**.
+- Requires **PyTorch with GPU support** and `auto-gptq` for model optimization.
+
+---
+
+### **6.5 CPU-Based Processing**
+This branch (`cpu-processing`) implements **CPU-based** trademark processing using:
+1. **OCR (`Tesseract-OCR`)** → Extracts text from trademark images.
+2. **`OpenCV`** → Preprocesses images for better OCR accuracy.
+3. **ResNet18 (from `torchvision`)** → Extracts image **feature vectors**.
+4. **`faiss-cpu`** → Stores images in a **vector database** for similarity search.
+
+#### **Running CPU Processing**
+To process trademarks:
+```bash
+python src/cpu_processing.py
+
+---
+
