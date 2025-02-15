@@ -3,22 +3,28 @@ import re
 import pandas as pd
 
 # Define file paths
-CSV_FILE = "data/trademark_extracted_data.csv"
+DATA_FOLDER = "data"
 GPU_OUTPUTS_FOLDER = "gpu_outputs"
 FINAL_RESULTS_FOLDER = "final-result"
 
 # Ensure output directory exists
 os.makedirs(FINAL_RESULTS_FOLDER, exist_ok=True)
-os.makedirs("data", exist_ok=True)  # Ensure data folder exists
 
-# Load CSV data or initialize an empty DataFrame if it does not exist
-if os.path.exists(CSV_FILE):
-    df = pd.read_csv(CSV_FILE, dtype=str).fillna("")  # Load CSV if it exists
-    print("✅ CSV file loaded successfully.")
-else:
-    df = pd.DataFrame(columns=["Application Number", "Mark Name", "Trademark Description", 
-                               "Goods and Services", "Trademark Image URL"])  # Create empty DataFrame
-    print("⚠️ No existing CSV file found. Starting with an empty dataset.")
+# Load all CSV data from the `data/` folder
+def load_all_csv_data():
+    """ Loads all yearly CSV files and merges them into one DataFrame. """
+    all_files = [os.path.join(DATA_FOLDER, f) for f in os.listdir(DATA_FOLDER) if f.endswith(".csv")]
+    
+    if not all_files:
+        print("⚠️ No CSV files found in the 'data/' folder. Starting with an empty dataset.")
+        return pd.DataFrame(columns=["Application Number", "Mark Name", "Trademark Description", 
+                                     "Goods and Services", "Trademark Image URL"])
+    
+    df_list = [pd.read_csv(file, dtype=str).fillna("") for file in all_files]
+    merged_df = pd.concat(df_list, ignore_index=True)
+    
+    print(f"✅ Loaded {len(all_files)} CSV files into memory.")
+    return merged_df
 
 # Function to extract and remove duplicate Chinese phrases
 def extract_unique_chinese(text):
@@ -27,8 +33,8 @@ def extract_unique_chinese(text):
     unique_phrases = list(dict.fromkeys(chinese_phrases))  # Remove duplicates while keeping order
     return " ".join(unique_phrases) if unique_phrases else "N/A"  # Return formatted text
 
-# Function to find best matches in the CSV file
-def find_best_matches(keywords):
+# Function to find best matches in the CSV data
+def find_best_matches(df, keywords):
     """ Finds the top two best matches based on 'Mark Name'. """
     if df.empty:
         return pd.DataFrame()  # Return empty DataFrame if no data is available
@@ -45,6 +51,9 @@ def find_best_matches(keywords):
     
     return matched_rows
 
+# Load all CSV data
+df = load_all_csv_data()
+
 # Process each text file in gpu_outputs/
 for txt_file in os.listdir(GPU_OUTPUTS_FOLDER):
     if txt_file.endswith(".txt"):
@@ -58,8 +67,8 @@ for txt_file in os.listdir(GPU_OUTPUTS_FOLDER):
         extracted_words = extracted_text.split(",")  # Split words by comma
         unique_chinese_characters = extract_unique_chinese(extracted_text)  # Extract unique Chinese characters
 
-        # Find best matching rows in CSV
-        matched_rows = find_best_matches(extracted_words)
+        # Find best matching rows in all CSV files
+        matched_rows = find_best_matches(df, extracted_words)
 
         # Prepare the output data
         if not matched_rows.empty:

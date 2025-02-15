@@ -1,4 +1,0 @@
-1. Company or Brand Name: Imaxis
-
-2. Text Extraction and Indexing:
-   - imaxis

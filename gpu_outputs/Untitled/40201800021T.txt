@@ -1,9 +1,0 @@
-1. **Company or Brand Name:**
-   - Matratze
-   - In Der Box
-
-2. **Text Extraction and Indexing:**
-   - Matratze
-   - In Der Box
-
-   The visible text is already in a structured format and doesn't require further breakdown into separate words, compound words, or pinyin transliteration as no additional languages or symbols indicating compound words are present.
