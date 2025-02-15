@@ -9,9 +9,16 @@ FINAL_RESULTS_FOLDER = "final-result"
 
 # Ensure output directory exists
 os.makedirs(FINAL_RESULTS_FOLDER, exist_ok=True)
+os.makedirs("data", exist_ok=True)  # Ensure data folder exists
 
-# Load CSV data, ensuring NaN values are replaced with empty strings
-df = pd.read_csv(CSV_FILE, dtype=str).fillna("")  # Convert all columns to strings and replace NaN with ""
+# Load CSV data or initialize an empty DataFrame if it does not exist
+if os.path.exists(CSV_FILE):
+    df = pd.read_csv(CSV_FILE, dtype=str).fillna("")  # Load CSV if it exists
+    print("✅ CSV file loaded successfully.")
+else:
+    df = pd.DataFrame(columns=["Application Number", "Mark Name", "Trademark Description", 
+                               "Goods and Services", "Trademark Image URL"])  # Create empty DataFrame
+    print("⚠️ No existing CSV file found. Starting with an empty dataset.")
 
 # Function to extract and remove duplicate Chinese phrases
 def extract_unique_chinese(text):
@@ -23,6 +30,9 @@ def extract_unique_chinese(text):
 # Function to find best matches in the CSV file
 def find_best_matches(keywords):
     """ Finds the top two best matches based on 'Mark Name'. """
+    if df.empty:
+        return pd.DataFrame()  # Return empty DataFrame if no data is available
+
     matched_rows = pd.DataFrame()
 
     for word in keywords:
