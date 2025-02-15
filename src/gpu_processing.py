@@ -53,8 +53,11 @@ def process_image(image_path):
 
         search_terms = extract_searchable_words(extracted_text)
 
-        # Save correctly formatted search terms
-        output_file = os.path.join(OUTPUT_FOLDER, os.path.basename(image_path).replace(".jpg", ".txt"))
+        # Ensure proper filename handling for both .jpg and .png
+        output_file = os.path.join(
+            OUTPUT_FOLDER, os.path.splitext(os.path.basename(image_path))[0] + ".txt"
+        )
+        
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(search_terms)
         
