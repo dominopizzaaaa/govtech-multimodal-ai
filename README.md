@@ -41,6 +41,7 @@ Since CPU-based OCR was not sufficient, I researched models that use GPU acceler
 1. I first tested InternVL2 on Hugging Face’s free API, but it had a strict quota.
 2. I set up a Docker environment to later run on a GPU-powered machine.
 3. My friend offered to test it on her local GPU, so I modified the code accordingly.
+4. After a while, it was not sustainable to keep sending code over to her so I bought the Hugging Face Pro to use their GPU instead
 
 When I ran on my first try, I was so surprised at the accuracy and ability of InternVL to decipher not only the words, but also the background. For example, it was able to tell the background was depicting great wall of china, which I found very fascinating (maybe because I was using CPU the whole time to try to figure ut the words which is much less effective at doing so). It was also able to tell, output and translate korean words and find the company. The accuracy was so much higher than that of CPU as seen below. As this is my first time using InternVL, I did not change the output and the defaulted output was given to me, which was a description of the image. I plan to change the prompt so that I will be able to obtain keywords and the mark name to be able to query the data later for the second iteration.
 
@@ -63,7 +64,63 @@ When I ran on my first try, I was so surprised at the accuracy and ability of In
             
 ---
 
-## 3. Running This Project
+## 3. Fetching Data
+After extracting the brand names and other text from the images, I needed a way to link the extracted text to structured data. My goal was to search for the extracted words in a trademark dataset and retrieve relevant details, including the official **Mark Name, Trademark Description, and Image URL**.
+
+### Steps I Took (Testing):
+1. **Extracting Keywords for Search**  
+   - I saved the extracted text from GPU processing as `.txt` files in the `gpu_outputs` folder.
+   - The text files contained brand names and words detected from the trademarks, formatted for easy search.
+
+2. **Matching Extracted Text with the Trademark Dataset**  
+   - I had a CSV file (`trademark_extracted_data.csv`) that contained official trademark records.
+   - This dataset included **Mark Name, Description, Applicant Details, and URLs for Trademark Images**.
+   - I wrote a script (`src/data_searching.py`) that:
+     - Reads every `.txt` file in `gpu_outputs/`
+     - Searches for the extracted words in the **Mark Name** column of the CSV
+     - Returns the **top 2 most relevant matches** based on similarity.
+  
+3. **Formatting and Saving Results**  
+   - The script then **formats the output** into a structured text file in `final-result/`:
+     ```json
+     {
+         "wordsInMark": "Brand Name",
+         "chineseCharacter": "对应的中文字符",
+         "descrOfDevice": [
+             {
+                 "Trademark Description": "This is a trademark description.",
+                 "Trademark Image URL": "https://ipos-storage.data.gov.sg/trademarks/12345.jpg"
+             },
+             {
+                 "Trademark Description": "Another matching trademark description.",
+                 "Trademark Image URL": "https://ipos-storage.data.gov.sg/trademarks/67890.jpg"
+             }
+         ]
+     }
+     ```
+   - I made sure the output followed a structured format where:
+     - **"wordsInMark"** contains the English-indexed terms.
+     - **"chineseCharacter"** contains any detected Chinese text (removed duplicates).
+     - **"descrOfDevice"** contains up to **two** relevant matches from the dataset.
+
+4. **Challenges & Fixes**  
+   - Some extracted words were too generic and returned too many matches, so I **limited results to the top two matches**.
+   - The **Trademark Description field was mostly missing (`NaN`)**, which I fixed by handling empty values properly. After which, I decided to add in the Goods and Services into the description to prevent it from being empty.
+   - There were **duplicate Chinese characters in the extracted results**, so I ensured only unique values were included.
+
+### Why This Step Was Important  
+- It allows the extracted **raw text** to be linked to structured **official trademark data**.  
+- This makes it easier to **validate extracted text** and check if the OCR/AI models are accurately recognizing trademarks.  
+- The structured format makes it ready for **further processing**, such as building a search tool or an AI-assisted trademark lookup.
+
+---
+
+### Steps I Took (Fetch All Data):
+
+### Steps I Took (Perform Testing):
+
+
+## 4. Running This Project
 Depending on whether you have CPU or GPU, you can run the project in different ways.
 
 ### Option 1: Running on CPU
@@ -87,14 +144,14 @@ docker run --gpus all gpu-processing
 
 ---
 
-## 4. Next Steps & Improvements
+## 5. Next Steps & Improvements
 - Fine-tune model to improve accuracy for distorted images.
 - Compare InternVL2 with other multimodal models like DeepSeek-VL.
 - Optimize runtime performance for large-scale trademark analysis.
 
 ---
 
-## 5. Dependencies (requirements.txt)
+## 6. Dependencies (requirements.txt)
 If you are running this on your own machine, make sure to install:
 ```
 torch

@@ -58,12 +58,17 @@ for txt_file in os.listdir(GPU_OUTPUTS_FOLDER):
                 mark_name = str(row.get("Mark Name", "")).strip()
                 description = str(row.get("Trademark Description", "")).strip()
                 image_url = str(row.get("Trademark Image URL", "")).strip()
+                
+                # If description is empty, use "Goods and Services"
+                if not description:
+                    description = str(row.get("Goods and Services", "")).strip()
 
                 output_lines.append(
                     f"Mark Name: {mark_name}\n"
                     f"Description: {description}\n"
                     f"Image URL: {image_url}\n"
                     f"Chinese Characters: {unique_chinese_characters}\n"
+                    "----------------------"
                 )
 
             # Save results to text file

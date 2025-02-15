@@ -1,9 +1,10 @@
 Mark Name: helen's bar
-Description: 
+Description: Canteen services; hotel services; café services; food and drink catering; accommodation bureau services [hotels, boarding houses]; self-service restaurant services; snack-bar services; bar services; mobile catering services; Coffee shop services; Office catering services for the provision of coffee; Tea rooms; Tea room services.
 Image URL: https://ipos-storage.data.gov.sg/trademarks/40201800025Q/f727df49-57fb-4719-9b82-af59603aa048/16b5baa6-7d7a-4125-a767-4f37baf5f07c.jpg
 Chinese Characters: N/A
-
+----------------------
 Mark Name: solu sight
-Description: 
+Description: Computers; Computer mice; Computer discs; Computer disks; Computer mouse; Computer buses; Computer cases; Computer chips; Computer tapes; Home computers; Trip computers; Micro-computer; Computer cables; Computer mouses; Computer modems; Micro-computers; Tablet computer; Computer buffers.
 Image URL: https://ipos-storage.data.gov.sg/trademarks/40201800005W/d5b2c046-a4d1-4f16-b403-c1ab97ec4362/c092807d-344d-4110-9c15-721a21a78d15.jpg
 Chinese Characters: N/A
+----------------------
