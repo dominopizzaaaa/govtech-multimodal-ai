@@ -1,1 +1,1 @@
-POLIFAN,POLIFAN
+POLIFAN,polifan,POLIFANpolifan

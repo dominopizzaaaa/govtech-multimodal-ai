@@ -1,1 +1,1 @@
-MartCoin,SG,coin,MartCoinSGcoin
+COINMART,SG,COINMARTSG

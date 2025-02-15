@@ -1,1 +1,1 @@
-urgoclean,urgoclean
+UR,GO,CLEAN,URGCLEAN,URGOCLEANURGCLEAN
