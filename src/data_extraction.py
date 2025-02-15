@@ -2,6 +2,7 @@ import os
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # API Endpoint
 API_URL = "https://api.data.gov.sg/v1/technology/ipos/trademarks"
@@ -10,12 +11,15 @@ API_URL = "https://api.data.gov.sg/v1/technology/ipos/trademarks"
 DATA_FOLDER = "data"
 os.makedirs(DATA_FOLDER, exist_ok=True)
 
+# Create a persistent HTTP session
+session = requests.Session()
+
 # Function to fetch trademark data for a given lodgement date
 def fetch_trademark_data(lodgement_date):
     params = {"lodgement_date": lodgement_date}
     
     try:
-        response = requests.get(API_URL, params=params, timeout=10)
+        response = session.get(API_URL, params=params, timeout=10)
         
         if response.status_code == 200:
             data = response.json()
@@ -86,23 +90,29 @@ def save_to_csv(data, year):
     else:
         print(f"⚠️ No data to save for {year}.")
 
-# Loop through each year from 2004 to 2025
-for year in range(2004, 2026):
+# Function to process an entire year using multi-threading
+def process_year(year):
     print(f"\n🚀 Processing trademarks for the year {year}...\n")
     
     start_date = datetime(year, 1, 1)
     end_date = datetime(year, 12, 31)
-    current_date = start_date
+    
+    all_data = []
+    
+    # Use threading to fetch multiple days in parallel
+    with ThreadPoolExecutor(max_workers=10) as executor:  # Adjust max_workers as needed
+        future_to_date = {executor.submit(fetch_trademark_data, (start_date + timedelta(days=i)).strftime("%Y-%m-%d")): i for i in range((end_date - start_date).days + 1)}
+        
+        for future in as_completed(future_to_date):
+            records = future.result()
+            if records:
+                all_data.extend(process_trademark_data(records))
 
-    while current_date <= end_date:
-        lodgement_date = current_date.strftime("%Y-%m-%d")  # Convert date to YYYY-MM-DD format
-        records = fetch_trademark_data(lodgement_date)
+    # Save data for the year
+    save_to_csv(all_data, year)
 
-        if records:
-            processed_data = process_trademark_data(records)
-            save_to_csv(processed_data, year)
+# Loop through each year from 2004 to 2024
+for year in range(2004, 2025):
+    process_year(year)
 
-        # Move to the next day
-        current_date += timedelta(days=1)
-
-print("\n✅ Data extraction completed for all years from 2004 to 2025!")
+print("\n✅ Data extraction completed for all years from 2004 to 2024!")

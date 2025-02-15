@@ -6,7 +6,7 @@ from gradio_client import Client, handle_file
 # Use Hugging Face Premium API Token
 HF_API_TOKEN = "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"
 
-# Initialize API Client for Hugging Face InternVL2
+# Initialize API Client for Hugging Face InternVL2 (refer to README point 5)
 client = Client("developer0hye/InternVL2_5-8B", hf_token=HF_API_TOKEN)
 
 # Define folders
