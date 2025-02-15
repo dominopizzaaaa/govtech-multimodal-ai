@@ -2,6 +2,7 @@ import os
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # API Endpoint
 API_URL = "https://api.data.gov.sg/v1/technology/ipos/trademarks"
@@ -12,12 +13,15 @@ CSV_FILE = "data/trademark_extracted_data.csv"
 # Ensure output directory exists
 os.makedirs("data", exist_ok=True)
 
+# Create a requests session for efficiency
+session = requests.Session()
+
 # Function to fetch trademark data for a given lodgement date
 def fetch_trademark_data(lodgement_date):
     params = {"lodgement_date": lodgement_date}
     
     try:
-        response = requests.get(API_URL, params=params, timeout=10)
+        response = session.get(API_URL, params=params, timeout=10)
         
         if response.status_code == 200:
             data = response.json()
@@ -69,7 +73,7 @@ def process_trademark_data(records):
 
     return extracted_data
 
-# Function to save data to CSV (append mode without duplicates)
+# Function to save data to CSV (batch write)
 def save_to_csv(data, filename=CSV_FILE):
     if data:
         df = pd.DataFrame(data)
@@ -86,18 +90,34 @@ def save_to_csv(data, filename=CSV_FILE):
     else:
         print("⚠️ No data to save.")
 
-# Iterate over all dates from 2004 to 2024
-start_date = datetime(2004, 1, 1)
-end_date = datetime(2024, 12, 31)
-current_date = start_date
-
-while current_date <= end_date:
-    lodgement_date = current_date.strftime("%Y-%m-%d")  # Convert date to YYYY-MM-DD format
+# **Parallel Execution for Faster Processing**
+def fetch_and_process_date(lodgement_date):
+    """ Fetch data for a single date, process it, and return extracted records. """
     records = fetch_trademark_data(lodgement_date)
-
     if records:
-        processed_data = process_trademark_data(records)
-        save_to_csv(processed_data)
+        return process_trademark_data(records)
+    return []
 
-    # Move to the next day
-    current_date += timedelta(days=1)
+# **Main Execution - Run with ThreadPoolExecutor**
+if __name__ == "__main__":
+    start_date = datetime(2004, 1, 1)
+    end_date = datetime(2004, 12, 31)
+    
+    all_dates = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
+    
+    # Use ThreadPoolExecutor to fetch multiple dates in parallel
+    batch_size = 20  # Number of dates to process in parallel
+    all_data = []
+
+    with ThreadPoolExecutor(max_workers=batch_size) as executor:
+        future_to_date = {executor.submit(fetch_and_process_date, date.strftime("%Y-%m-%d")): date for date in all_dates}
+
+        for future in as_completed(future_to_date):
+            data = future.result()
+            if data:
+                all_data.extend(data)
+
+    # Save all collected data in a single batch
+    save_to_csv(all_data)
+
+    print("✅ Data collection completed successfully!")
