@@ -86,8 +86,8 @@ def save_to_csv(data, filename=CSV_FILE):
     else:
         print("⚠️ No data to save.")
 
-# Iterate over all dates from 2015 to 2024
-start_date = datetime(2015, 1, 1)
+# Iterate over all dates from 2004 to 2024
+start_date = datetime(2004, 1, 1)
 end_date = datetime(2024, 12, 31)
 current_date = start_date
 
