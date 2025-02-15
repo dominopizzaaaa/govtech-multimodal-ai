@@ -125,7 +125,7 @@ After doing that, I manage to retrieve data for 2004 within less than 10 seconds
 Then I had to retrieve a few photos for a final testing. I was intentional when picking out the data. I made sure I had a photo from every year, i made sure some had colours, some were black and white. i made sure that i had logos with chinese words on them so i could test whether they can be extracted. i saved most images as .jgp, some as .png to make sure both works. i also made sure logos of different sizes were picked, leading to the images as seen in the trademark_images folder.
 
 ### Steps I Took (Perform Testing):
-
+I did not account for .png files. I changed this in my second test. in my test, i manage to get 9 / 19 accuracy
 
 ## 4. Running This Project
 Depending on whether you have CPU or GPU, you can run the project in different ways.

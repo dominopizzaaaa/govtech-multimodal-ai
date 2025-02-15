@@ -1,1 +1,1 @@
-Outdoor,Routdoor,OutdoorRoutdoor
+ROUTDOOR,R,OUTDOOR,ROUTDOORROUTDOOR

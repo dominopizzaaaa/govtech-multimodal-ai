@@ -1,5 +1,10 @@
-Mark Name: coinmart
-Description: Computers; Computing installations.
-Image URL: https://ipos-storage.data.gov.sg/trademarks/40201803786W/76154177-798b-49c3-a74e-0415f32c44ce/8b948081-02b3-4623-939a-b9361f109516.jpg
+Mark Name: ICOIN
+Description: Wireless communication devices for voice, data or image transmission; wireless communication device for transmitting digital currency; downloadable software for sending, receiving, and transmitting digital currency; downloadable software for managing digital currency payment and exchange transactions; downloadable computer software for use as a cryptocurrency wallet; cryptocurrency hardware wallets; cryptocurrency hardware wallets for communicating with mobile-phone based applications and secure peripheral devices; downloadable software for use in user identification, authentication, and verification; downloadable software for enabling generation of multiple crypto-wallets from a single seed phrase; downloadable software for generating and storing cryptographic keys used to create or modify blockchain accounts.; Electronic message transmission.; Providing online non-downloadable software for sending, receiving, and transmitting digital currency; providing online non-downloadable software for managing digital currency payment and exchange transactions; providing on-line non-downloadable computer software for use as a cryptocurrency wallet; providing online non-downloadable software for use in user identification, authentication, and verification; providing online non-downloadable software for enabling generation of multiple crypto-wallets from a single seed phrase; providing online non-downloadable software for generating and storing cryptographic keys used to create or modify blockchain accounts.
+Image URL: https://ipos-storage.data.gov.sg/trademarks/40202014371X/07154428-12c8-437e-b6ea-0c1578835e75/4d811c6d-a1b3-459f-a201-a35a1fe21979.JPG
+Chinese Characters: N/A
+----------------------
+Mark Name: micoin
+Description: Monetary affairs; monetary transactions; exchanging money; numismatic appraisal; foreign currency exchange; financial management; monetary exchange services; currency exchange and advice; fiscal valuation; monetary transfer services.
+Image URL: https://ipos-storage.data.gov.sg/trademarks/40201805185Y/ac1feed0-7def-4b88-a1c5-95412e27ab93/ba94993f-a2da-4ba6-bd10-1b37809ae525.jpg
 Chinese Characters: N/A
 ----------------------
