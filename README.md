@@ -118,7 +118,9 @@ I had an accuracy of 24/28 for extracting the correct description using the 28 i
 ---
 
 ### Steps I Took (Fetch All Data):
-I tried fetching from 2004 to 2024, my computer took forever to run. After running for 15 mins, it crashed as it hasnt even collected the data for the year 2005. Hence, I decided to make the year range smaller (by year) and run it year by year to retrieve the data. I also plan to use threading and keep the HTTP connection open to reduce latency
+I tried fetching from 2004 to 2025, my computer took forever to run. After running for 15 mins, it crashed as it hasnt even collected the data for the year 2005. Hence, I decided to make the year range smaller (by year) and run it year by year to retrieve the data. I also plan to use threading and keep the HTTP connection open to reduce latency
+
+After doing that, I manage to retrieve data for 2004 within less than 10 seconds, so i decided to try to retrieve all data from 2004 to 2025 again
 
 ### Steps I Took (Perform Testing):
 
