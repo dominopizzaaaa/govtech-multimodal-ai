@@ -1,3 +1,0 @@
-Application Number,Filing Date,Mark Name,Trademark Description,Goods and Services,Applicant Name,Applicant Country,Trademark Image URL,Saved Image File,Status,Expiry Date
-40201800017U,2018-01-02,sionic ,,Financial consulting.,Sionic Advisors Global Holdings LLP,United Kingdom,https://ipos-storage.data.gov.sg/trademarks/40201800017U/df0bda1d-5657-44b2-85c8-15de01b1b887/fbda6f0a-3113-45fe-b104-71d7bceb6b48.bmp,40201800017U.jpg,Registered,2028-01-02
-40201800018X,2018-01-02,sionic advisors,,Financial consulting.,Sionic Advisors Global Holdings LLP,United Kingdom,https://ipos-storage.data.gov.sg/trademarks/40201800018X/217668bb-e3bb-4cba-a793-7d367693718f/d7965e61-5691-418b-a75a-a8b65ed7eed7.bmp,40201800018X.jpg,Registered,2028-01-02

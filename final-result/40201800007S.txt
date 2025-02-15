@@ -1,2 +1,0 @@
-Application Number,Filing Date,Mark Name,Trademark Description,Goods and Services,Applicant Name,Applicant Country,Trademark Image URL,Saved Image File,Status,Expiry Date
-40201800007S,2018-01-02,pinstop ,,"Concierge and other hotel software, including maps via the internet; software; map software.",Digby PTE. Ltd,Singapore,https://ipos-storage.data.gov.sg/trademarks/40201800007S/8939fb32-43f0-4e63-872e-080a263bc3a1/9967e285-185c-469f-af28-5f95ec5211a8.jpeg,40201800007S.jpg,Registered,2028-01-02
