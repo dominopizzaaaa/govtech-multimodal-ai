@@ -1,0 +1,12 @@
+1. Company or Brand Name: Modern China Tea Shop
+
+2. Text Extraction and Indexing:
+   - English: Modern China Tea Shop
+   - Chinese: 茶颜悦色 (chá yán yuè sè)
+
+Formatted for search indexing:
+1. Modern
+2. China
+3. Tea
+4. Shop
+5. chá yán yuè sè

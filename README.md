@@ -45,8 +45,13 @@ Since CPU-based OCR was not sufficient, I researched models that use GPU acceler
 When I ran on my first try, I was so surprised at the accuracy and ability of InternVL to decipher not only the words, but also the background. For example, it was able to tell the background was depicting great wall of china, which I found very fascinating (maybe because I was using CPU the whole time to try to figure ut the words which is much less effective at doing so). It was also able to tell, output and translate korean words and find the company. The accuracy was so much higher than that of CPU as seen below. As this is my first time using InternVL, I did not change the output and the defaulted output was given to me, which was a description of the image. I plan to change the prompt so that I will be able to obtain keywords and the mark name to be able to query the data later for the second iteration.
 
 #### Accuracy achieved: (To be added later)
-- First try: 25/28
-- Second try (changed input prompt)
+- First try: 23/28
+- Second try (changed input prompt: "Analyze this image and provide the following details: \n"
+            "1. Company or Brand Name: Identify the most likely brand or company associated with this logo.\n"
+            "2. Text Extraction and Indexing: Extract all visible text and format it for optimal search indexing. \n"
+            "   - If there are compound words (e.g., 'SyncTalk'), break them down into separate words (e.g., 'sync talk synctalk').\n"
+            "   - If there is Chinese text, provide a pinyin transliteration to improve searchability."): 24/28
+- Third try: I change the prompt to 'extract only the brand name' so i can use the brand names to search for the data later: 
 ---
 
 ## 3. Running This Project

@@ -1,0 +1,4 @@
+1. Company or Brand Name: The logo is for Esko, an educational materials company.
+
+2. Text Extraction and Indexing: 
+   - text: esk

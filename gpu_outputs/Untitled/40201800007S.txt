@@ -1,0 +1,5 @@
+1. Company or Brand Name: The logo belongs to Pinstop.
+
+2. Text Extraction and Indexing:
+   - **Text:** Pinstop
+   - **Indexing:** Pinstop

@@ -1,0 +1,6 @@
+1. **Company or Brand Name:** yo!TEA 有茶
+
+2. **Text Extraction and Indexing:**
+   - yo!TEA
+   - 有茶
+   - 有意向的用户可以将这些词语分开索引，如“yo”，“TEA”，“有茶”。
