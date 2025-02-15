@@ -1,9 +1,12 @@
 import os
 import re
+import time
 from gradio_client import Client, handle_file
 
-# Define API Client for Hugging Face InternVL2
-client = Client("developer0hye/InternVL2_5-8B")
+HF_API_TOKEN = "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"
+
+# Define API Client for Hugging Face InternVL2 with Premium Access
+client = Client("developer0hye/InternVL2_5-8B", hf_token=HF_API_TOKEN)
 
 # Define folders
 IMAGE_FOLDER = "trademark_images"
@@ -15,7 +18,7 @@ def clean_brand_name(text):
     """ Cleans text to extract only the brand name and format correctly. """
     text = text.lower().strip()
 
-    # Remove unwanted prefixes (e.g., "the brand name is")
+    # Remove common incorrect phrases
     text = re.sub(r"^(the\s+brand\s+name\s+is\s+)", "", text)
 
     # Keep only alphanumeric characters and spaces
@@ -27,13 +30,13 @@ def clean_brand_name(text):
 
 # Function to process images using InternVL2 API
 def process_image(image_path):
-    print(f"🖼️ Processing {image_path} with InternVL2...")
+    print(f"Processing {image_path} with InternVL2...")
 
     try:
         # Extract text using InternVL2 API
         extracted_text = client.predict(
             media_input=handle_file(image_path),
-            text_input="Extract only the brand name from this image. I don't want any other redundant words like 'the brand name is ...' or 'the answer is ...'. Just give me the word(s) directly",
+            text_input="Extract the brand name and words from this image. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. I only want the words in the picture. Output Chinese characters and punctuation if present in the photo. Include all words that are in the photo",
             api_name="/internvl_inference"
         ).strip()
 
@@ -51,6 +54,12 @@ def process_image(image_path):
 
     except Exception as e:
         print(f"⚠️ Error processing {image_path}: {e}")
+
+        # Handle API Rate Limit (Wait and Retry)
+        if "exceeded your GPU quota" in str(e):
+            print("⏳ Waiting 60 seconds before retrying...")
+            time.sleep(60)  # Wait for quota reset
+            process_image(image_path)  # Retry request
 
 # Process all images in the folder
 if __name__ == "__main__":
