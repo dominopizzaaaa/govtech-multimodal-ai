@@ -152,7 +152,7 @@ docker run --gpus all gpu-processing
 ## 5. Hugging Face API
 - I used hugging face API without a key initially and it was publicly accessible as I was using a free version. However, after running it for a while, I finished using the free credits and was limited, so I had no choice but to purchase the pro version and include an API key in the file
 - In the Technical Requirements, it is stated that 'No calling of external commercial APIs or any service that requires an API key' is allowed. So I had to change my gpu_processing.py to cater to this
-- I resorted to relying on my friend's computer which had a gpu to run my code
+- I resorted to relying on my friend's computer which had a gpu to run my code. This meant I have to change the gpu_processing.py file accordingly. So I did so in another branch called gpu-remote.
 
 ---
 
