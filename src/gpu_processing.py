@@ -36,7 +36,7 @@ def process_image(image_path):
         # Extract text using InternVL2 API
         extracted_text = client.predict(
             media_input=handle_file(image_path),
-            text_input="Extract the brand name and words from this image. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. I only want the words in the picture. Output Chinese characters and punctuation if present in the photo. Include all words that are in the photo",
+            text_input="Extract the brand name from this image. Do not add extra words or formatting. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. Keep Chinese characters, punctuation, and English words exactly as they appear. Ensure all words, including Chinese, are extracted and formatted correctly.",
             api_name="/internvl_inference"
         ).strip()
 

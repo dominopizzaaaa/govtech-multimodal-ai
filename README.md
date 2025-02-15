@@ -51,7 +51,10 @@ When I ran on my first try, I was so surprised at the accuracy and ability of In
             "2. Text Extraction and Indexing: Extract all visible text and format it for optimal search indexing. \n"
             "   - If there are compound words (e.g., 'SyncTalk'), break them down into separate words (e.g., 'sync talk synctalk').\n"
             "   - If there is Chinese text, provide a pinyin transliteration to improve searchability."): 24/28
-- Third try: I change the prompt to 'extract only the brand name' so i can use the brand names to search for the data later: 
+- Third try: I change the prompt to 'extract only the brand name' so i can use the brand names to search for the data later: 24/28. Chinese characters not captured
+- Fourth try: I made the prompt more detailed: by adding 'do not add extra words'. Too many phrases like: here are the words extracted from the image and also chinese characters still not captured: 18/28
+- Fifth try: Changed prompted to "Extract the brand name and words from this image. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. I only want the words in the picture. Output Chinese characters and punctuation if present in the photo. Include all words that are in the photo": 20/28
+- Sixth try: Chinese words are still not being outputted. I am trying to make the prompt more specific "Extract the brand name from this image. Do not add extra words or formatting. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. Keep Chinese characters, punctuation, and English words exactly as they appear. Ensure all words, including Chinese, are extracted and formatted correctly.": 
 ---
 
 ## 3. Running This Project
