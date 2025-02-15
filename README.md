@@ -54,7 +54,13 @@ When I ran on my first try, I was so surprised at the accuracy and ability of In
 - Third try: I change the prompt to 'extract only the brand name' so i can use the brand names to search for the data later: 24/28. Chinese characters not captured
 - Fourth try: I made the prompt more detailed: by adding 'do not add extra words'. Too many phrases like: here are the words extracted from the image and also chinese characters still not captured: 18/28
 - Fifth try: Changed prompted to "Extract the brand name and words from this image. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. I only want the words in the picture. Output Chinese characters and punctuation if present in the photo. Include all words that are in the photo": 20/28
-- Sixth try: Chinese words are still not being outputted. I am trying to make the prompt more specific "Extract the brand name from this image. Do not add extra words or formatting. Do not add extra phrases like 'the text in the image is ...' or 'extracted text is ...' or 'the words in the image are'. I should not see any of those phrases or any phrase that carries the same meaning and purpose. Keep Chinese characters, punctuation, and English words exactly as they appear. Ensure all words, including Chinese, are extracted and formatted correctly.": 
+- Sixth try: I realised my second try is doing the best so far at extracting chinese words, so i decided to reuse that prompt and add onto it. "Analyze this image and provide the following details: \n"
+            "1. Company or Brand Name: Identify the most likely brand or company associated with this logo.\n"
+            "2. Text Extraction and Indexing: Extract all visible text and format it for optimal search indexing. \n"
+            "   - If there are compound words (e.g., 'SyncTalk'), break them down into separate words (e.g., 'sync talk synctalk').\n"
+            "   - If there is Chinese text, provide a pinyin transliteration to improve searchability.
+            Lastly, I want all the words to be searched to be placed at the last row, separated by only a comma (not white spaces). this includes all the texts found from point 1 and 2": 25/28 best result.
+            
 ---
 
 ## 3. Running This Project
