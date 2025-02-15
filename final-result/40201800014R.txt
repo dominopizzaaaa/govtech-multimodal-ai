@@ -1,0 +1,2 @@
+Application Number,Filing Date,Mark Name,Trademark Description,Goods and Services,Applicant Name,Applicant Country,Trademark Image URL,Saved Image File,Status,Expiry Date
+40201800014R,2018-01-02,rw,,Showers; Shower installations; Shower bath installations; Spray fittings [parts of shower installations]; Shower heads being parts of water supply installations.,DE PYRAMID PTE. LTD.,Singapore,https://ipos-storage.data.gov.sg/trademarks/40201800014R/5b5a690c-8fcd-4dc1-b96d-940293f54d04/0aff52ec-3cbb-404b-a5cf-b7d3d0754f69.jpeg,40201800014R.jpg,Registered,2028-01-02
