@@ -34,6 +34,30 @@ def save_base64_image(base64_string: str, filename: str) -> str:
         f.write(base64.b64decode(base64_string))
     return image_path
 
+# Function to extract structured data correctly
+def parse_extracted_text(output_data):
+    """ Parses extracted text from the final output file. """
+    lines = output_data.strip().split("\n")
+
+    words_in_mark = ""
+    chinese_character = ""
+    descr_of_device = ""
+
+    for line in lines:
+        if line.startswith("Mark Name:"):
+            words_in_mark = line.replace("Mark Name:", "").strip()
+        elif line.startswith("Description:"):
+            descr_of_device = line.replace("Description:", "").strip()
+        elif line.startswith("Chinese Characters:"):
+            chinese_character = line.replace("Chinese Characters:", "").strip()
+
+    return {
+        "wordsInMark": words_in_mark,
+        "chineseCharacter": chinese_character if chinese_character and chinese_character.lower() != "n/a" else "",
+        "descrOfDevice": descr_of_device
+    }
+
+
 # API Inference Endpoint
 @app.post("/invoke")
 def invoke_model(data: ImageInput) -> Dict:
@@ -57,11 +81,7 @@ def invoke_model(data: ImageInput) -> Dict:
     else:
         output_data = "No match found."
 
-    return {
-        "wordsInMark": output_data.split("\n")[0],
-        "chineseCharacter": output_data.split("\n")[1] if len(output_data.split("\n")) > 1 else "",
-        "descrOfDevice": output_data.split("\n")[2] if len(output_data.split("\n")) > 2 else ""
-    }
+    return parse_extracted_text(output_data)
 
 # Run the FastAPI server
 if __name__ == "__main__":
