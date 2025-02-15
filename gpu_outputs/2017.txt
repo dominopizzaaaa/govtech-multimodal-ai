@@ -1,1 +1,1 @@
-ICOIN,MART,COINMART,SG,coin,crypto,ICOINMARTCOINMARTSGcoincrypto
+MartCoin,SG,coin,MartCoinSGcoin

@@ -1,1 +1,1 @@
-King,Perfect,KingPerfect
+KING,Perfect,King,Perfect,KINGPerfectKingPerfect
