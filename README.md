@@ -113,6 +113,8 @@ After extracting the brand names and other text from the images, I needed a way 
 - This makes it easier to **validate extracted text** and check if the OCR/AI models are accurately recognizing trademarks.  
 - The structured format makes it ready for **further processing**, such as building a search tool or an AI-assisted trademark lookup.
 
+I had an accuracy of 24/28 for extracting the correct description using the 28 images.
+
 ---
 
 ### Steps I Took (Fetch All Data):
