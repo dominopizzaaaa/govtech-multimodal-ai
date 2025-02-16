@@ -198,12 +198,12 @@ Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 r
 
 This project has 2 versions:
 - GPU-Processing Branch (gpu-processing): Designed to run on Hugging Face API (for users without a local GPU).
-- GPU-Remote/Main Branch (gpu-remote/main): Optimized for running on a local GPU using lmdeploy.
+- Main Branch (main): Optimized for running on a local GPU using lmdeploy.
 
-Since the technical requirements said that I cannot use an external API, the gpu-remote is for submission
+Since the technical requirements said that I cannot use an external API, the main is for submission
 
 1. Clone the Repository & Checkout the Correct Branch
-  -  First, clone the repository and switch to the gpu-remote branch.
+  -  First, clone the repository and switch to the main branch.
   ```# Clone the repository
 git clone <YOUR_GITHUB_REPO_URL>
 
