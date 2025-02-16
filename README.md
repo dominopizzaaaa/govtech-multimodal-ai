@@ -158,7 +158,11 @@ Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 r
   - Then, I opened Postman and set up the API request. Method: POST,  URL: http://localhost:8000/invoke
   - Run the convert-to-base64.py (input: path to an image) to get a base64-encoded string of any photo
   - Go to Body > raw > JSON and paste: ```{
-    "image": "<base64_encoded_image>"
+    "images": [
+        "<base64_encoded_image_1>",
+        "<base64_encoded_image_2>",
+        "<base64_encoded_image_3>"
+    ]
 }```
 
 
@@ -247,7 +251,11 @@ git pull origin main
   - Create new POST request to: ```http://localhost:8000/invoke```
   - In body tab, select raw and JSON format
   - Add this JSON as input: ```{
-    "image": "<base64_encoded_image>"
+    "images": [
+        "<base64_encoded_image_1>",
+        "<base64_encoded_image_2>",
+        "<base64_encoded_image_3>"
+    ]
 }```
 
 6. Receive API response:
@@ -261,6 +269,8 @@ git pull origin main
     "wordsInMark": "brand name extracted",
     "chineseCharacter": "extracted chinese characters (if any)",
     "descrOfDevice": "trademark description"
+}, {
+  ...
 }
 ```
 
