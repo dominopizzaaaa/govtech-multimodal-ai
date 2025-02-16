@@ -236,11 +236,11 @@ git pull origin main
   - Uses multi-threading and a persistent HTTP session to speed up data retrieval.
 ```python src/data_extraction.py```
 
-4. Convert an image to Base64
-  - Add the image to the folder
+4. Convert image(s) to Base64
+  - Add the image(s) to the folder
   - You can also use the images that I retrieved randomly, they are all stored in the test_images folder
-  - Copy and paste the path to that image into convert-to-base64.py
-  - Run ```python convert-to-base64.py```
+  - Copy and paste the path to the image(s) into convert-to-base64.py
+  - Run ```python convert-to-base64.py``` to get base64, then input them into Postman as per in point 6
 
 5. Run the FastAPI Server
   - Mac: ```uvicorn src.app:app --host 0.0.0.0 --port 8000```
