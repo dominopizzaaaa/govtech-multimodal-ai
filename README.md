@@ -85,7 +85,7 @@ As seen, using deepseek works, so i tried to incorporate deepseek into my model.
 ## GPU-Based Processing
 Since CPU-based OCR was not sufficient, I researched models that use GPU acceleration for better text extraction in hugging face. Some of the models I found were Qwen, InternVL2, etc. In the end, I choose InternVL2. I will describe my process below.
 
-#### To Note: Initially, I used Hugging Face's free GPU trial to process my images. However, after exhausting the free credits, I upgraded to the Pro version for the remainder of the project. To ensure the project runs smoothly on any setup, I will make a final adjustment to gpu_processing.py to enable local GPU processing instead of relying on Hugging Face's GPU as per the Technical Requirements in the word document. The final version that doesn't use Hugging Face GPU to run will be on the main branch, white the one I used (utilizing Hugging Face) will be on the branch gpu-processing if you want to take a look
+#### To Note: Initially, I used Hugging Face's free GPU trial to process my images. However, after exhausting the free credits, I upgraded to the Pro version for the remainder of the project. To ensure the project runs smoothly on any setup, I will make a final adjustment to gpu_processing.py to enable local GPU processing instead of relying on Hugging Face's GPU as per the Technical Requirements in the word document. The final version that doesn't use Hugging Face GPU to run will be on the main branch, while the one I used (utilizing Hugging Face) will be on the branch gpu-processing if you want to take a look
 
 
 ### Qwen
