@@ -1,5 +1,21 @@
 # TradeMark Image OCR & AI Processing
 
+## Table of Contents
+- [Project Overview](#project-overview)
+- [CPU Processing](#cpu-processing)
+  - [Try 1: EasyOCR](#try-1-easyocr)
+  - [Try 2: Tesseract OCR](#try-2-tesseract-ocr)
+- [GPU-Based Processing](#gpu-based-processing)
+  - [Qwen](#qwen)
+  - [InternVL2](#internvl2)
+- [Hugging Face API](#hugging-face-api)
+- [How to Run on Your Computer](#how-to-run-on-your-computer)
+- [Final Thoughts](#final-thoughts)
+  - [Deep Understanding of OCR & Multimodal AI](#1-deep-understanding-of-ocr--multimodal-ai)
+  - [GPU vs CPU Performance Optimization](#2-gpu-vs-cpu-performance-optimization)
+  - [Building a Scalable AI Pipeline](#3-building-a-scalable-ai-pipeline)
+  - [Discovering My Interest in Computer Vision](#4-discovering-my-interest-in-computer-vision)
+
 ## Project Overview
 I started this project to explore multimodal AI processing for extracting text from trademark images. Initially, I thought of using traditional OCR, but I quickly realized that some images had stylized fonts, distortions, and even non-Latin characters.
 
@@ -28,7 +44,7 @@ At first, I wanted to test image OCR using only CPU resources. Since my laptop d
 - Inconsistent formatting
 
 #### Accuracy achieved (EasyOCR): Defined as getting the output without extra characters
-- First try: 10/28 (I decided to move on an try other technologies first)
+- First try: 10/28 (I decided to move on and try other technologies first)
 ---
 
 ### Try 2: Tesseract OCR
@@ -45,7 +61,9 @@ At first, I wanted to test image OCR using only CPU resources. Since my laptop d
 #### Challenges Faced in using Tesseract
 - OCR was not accurate enough – many extracted texts had errors.
 - Processing speed was fine, but text extraction quality needed improvement.
-- I realised that some of the outputs have the actual word, but there are many redundant words like for example: "a LES ay 13pm VG vo 2 WW IN BA las ef any iz a is S sf ms Bx a 44tee s4 fL TtsIPNA AYE eModernChinaTeaShop" when the actual word is ModernChinaTeaShop so i tested it out on deepseek to see if it could derive the Mark Name with the garbage that comes with the output: 
+- I realised that some of the outputs have the actual word, but there are many redundant words like for example: "a LES ay 13pm VG vo 2 WW IN BA las ef any iz a is S sf ms Bx a 44tee s4 fL TtsIPNA AYE eModernChinaTeaShop" when the actual word is ModernChinaTeaShop.
+
+I realised that I could potentially use Deepseek model to refine the output so I tested it out on deepseek to see if it could derive the Mark Name with the garbage that comes with the output: 
 
 ![DeepSeek Trial Logo](./data/deepseek.png)
 
@@ -62,7 +80,8 @@ As seen, using deepseek works, so i tried to incorporate deepseek into my model.
 ## GPU-Based Processing
 Since CPU-based OCR was not sufficient, I researched models that use GPU acceleration for better text extraction in hugging face. Some of the models I found were Qwen, InternVL2, etc. In the end, I choose InternVL2. I will describe my process below.
 
-#### To Note: Initially, I used Hugging Face's free GPU trial to process my images. However, after exhausting the free credits, I upgraded to the Pro version for the remainder of the project. To ensure the project runs smoothly on any setup, I will make a final adjustment to gpu_processing.py to enable local GPU processing instead of relying on Hugging Face's GPU as per the Technical Requirements in the word document
+#### To Note: Initially, I used Hugging Face's free GPU trial to process my images. However, after exhausting the free credits, I upgraded to the Pro version for the remainder of the project. To ensure the project runs smoothly on any setup, I will make a final adjustment to gpu_processing.py to enable local GPU processing instead of relying on Hugging Face's GPU as per the Technical Requirements in the word document. The final version that doesn't use Hugging Face GPU to run will be on the main branch, white the one I used (utilizing Hugging Face) will be on the branch gpu-processing if you want to take a look
+
 
 ### Qwen
 _I will not be going through in detail for Qwen because I will be using InternVL_
@@ -86,8 +105,6 @@ When I ran on my first try, I was so surprised at the accuracy and ability of In
 - I first tested InternVL2 on Hugging Face’s free API, but it had a strict quota.
 - After a while, I finished the quota so I bought the Hugging Face Pro to use their GPU instead
 
-To run InternVL2 for trademark indexing, I set up my project using Hugging Face’s API due to the lack of a local GPU. This section outlines the full setup process, including API integration, dependencies, and execution. 
-
 Setting Up Hugging Face API for InternVL2:
 Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 remotely. Hugging Face provides an endpoint that allows me to send images and receive processed text outputs. I used the gradio_client library to send requests to the InternVL2 API.
 
@@ -99,7 +116,7 @@ Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 r
       - opencv-python → Used in my earlier CPU processing.
 2. Implementing gpu_processing.py for Hugging Face API
     - This script sends images to InternVL2 for text extraction.
-    - More on this in the next section
+    - More on this in the next section where I talk about accuracy
 3. Implementing data_extraction.py for Trademark Data Retrieval
     - The InternVL2 pipeline needed access to trademark data for matching extracted text with existing trademark records. Since searching by date each time was inefficient, I decided to retrieve all available trademark data first and store it in the data folder.
     - Initial attempt:
@@ -173,11 +190,11 @@ Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 r
 ### Hugging Face API
 - I used hugging face API without a key initially and it was publicly accessible as I was using a free version. However, after running it for a while, I finished using the free credits and was limited, so I had no choice but to purchase the pro version and include an API key in the file
 - In the Technical Requirements, it is stated that 'No calling of external commercial APIs or any service that requires an API key' is allowed. So I had to change my gpu_processing.py to cater to this
-- I resorted to relying on my friend's computer which had a gpu to run my code. This meant I have to change the gpu_processing.py file accordingly. So I did so in another branch called gpu-remote.
+- I resorted to relying on my friend's computer which had a gpu to run my code. This meant I have to change the gpu_processing.py file accordingly. So I did so in the main branch while the version that. am using will be on the gpu-processing branch.
 
 ---
 
-### How to run on your computer
+## How to run on your computer
 
 This project has 2 versions:
 - GPU-Processing Branch (gpu-processing): Designed to run on Hugging Face API (for users without a local GPU).
