@@ -1,7 +1,7 @@
 import base64
 
 # Path to your image
-image_path = "trademark_images/2003.jpg"
+image_path = "test_images/2009.jpg"
 
 # Read the image and encode it in Base64
 with open(image_path, "rb") as img_file:

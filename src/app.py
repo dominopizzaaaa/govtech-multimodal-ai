@@ -2,9 +2,9 @@ import os
 import base64
 import uvicorn
 import subprocess
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Dict
+from typing import Dict, List
 
 # Define FastAPI app
 app = FastAPI()
@@ -23,9 +23,9 @@ for folder in [IMAGE_FOLDER, OUTPUT_FOLDER, FINAL_RESULTS_FOLDER]:
 def health_check():
     return {"message": "pong"}
 
-# API Model for Request
+# API Model for Request (Accept Multiple Images)
 class ImageInput(BaseModel):
-    image: str  # Base64-encoded image
+    images: List[str]  # List of Base64-encoded images
 
 # Helper function to decode and save base64 image
 def save_base64_image(base64_string: str, filename: str) -> str:
@@ -57,31 +57,39 @@ def parse_extracted_text(output_data):
         "descrOfDevice": descr_of_device
     }
 
-
-# API Inference Endpoint
+# API Inference Endpoint (Support Multiple Images)
 @app.post("/invoke")
-def invoke_model(data: ImageInput) -> Dict:
-    # Generate filename for the image
-    filename = "uploaded_image.jpg"
-    image_path = save_base64_image(data.image, filename)
+def invoke_model(data: ImageInput) -> List[Dict]:
+    results = []
 
-    # Step 1: Run GPU Processing (Text Extraction)
-    print("🚀 Running GPU processing...")
-    subprocess.run(["python", "src/gpu_processing.py"])
+    for index, base64_image in enumerate(data.images):
+        # Generate a unique filename for each image
+        filename = f"uploaded_image_{index}.jpg"
+        image_path = save_base64_image(base64_image, filename)
 
-    # Step 2: Run Data Searching (Find Matching Trademarks)
-    print("🔎 Running data searching...")
-    subprocess.run(["python", "src/data_searching.py"])
+        # Step 1: Run GPU Processing (Text Extraction)
+        print(f"🚀 Running GPU processing on {filename}...")
+        subprocess.run(["python", "src/gpu_processing.py"])
 
-    # Step 3: Read the output file
-    result_file = os.path.join(FINAL_RESULTS_FOLDER, filename.replace(".jpg", ".txt"))
-    if os.path.exists(result_file):
-        with open(result_file, "r", encoding="utf-8") as f:
-            output_data = f.read()
-    else:
-        output_data = "No match found."
+        # Step 2: Run Data Searching (Find Matching Trademarks)
+        print(f"🔎 Running data searching on {filename}...")
+        subprocess.run(["python", "src/data_searching.py"])
 
-    return parse_extracted_text(output_data)
+        # Step 3: Read the output file
+        result_file = os.path.join(FINAL_RESULTS_FOLDER, filename.replace(".jpg", ".txt"))
+        if os.path.exists(result_file):
+            with open(result_file, "r", encoding="utf-8") as f:
+                output_data = f.read()
+        else:
+            output_data = "No match found."
+
+        # Append result for this image
+        results.append({
+            "image": filename,
+            **parse_extracted_text(output_data)  # Extract structured text properly
+        })
+
+    return results
 
 # Run the FastAPI server
 if __name__ == "__main__":
