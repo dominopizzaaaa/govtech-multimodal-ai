@@ -156,7 +156,7 @@ Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 r
       - Run Data Searching to Find Matching Trademark: ```python src/data_searching.py```
       - Run the Full Pipeline Using main.py: ```python main.py```
 
-6. Final Testing (with testing)
+6. Final Testing (from Postman)
   - I did not account for .png files. I changed this in my second test. in my test, i manage to get 9 / 19 accuracy and the reason why the accuracy is so low compared to the test I did just now is because i added so much more data, and there are many companies with the similar name. As such, my program sometimes output the wrong company with very similar name.
   - Since app.py is inside src/, I ran the FastAPI server with: uvicorn src.app:app --host 0.0.0.0 --port 8000
     - For Windows (PowerShell): $env:PYTHONPATH="src"; uvicorn src.app:app --host 0.0.0.0 --port 8000
