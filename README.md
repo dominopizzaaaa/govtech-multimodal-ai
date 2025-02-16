@@ -23,6 +23,11 @@ To improve accuracy, I researched different CPU and GPU-based models to process 
 
 I will first discuss CPU processing, then GPU
 
+My repository contains three branches:
+1. cpu-processing – Dedicated to CPU-based processing.
+2. gpu-processing – Implements GPU processing using the Hugging Face API.
+3. main – Intended for submission and testers, including you, the interviewer, who have a local GPU.
+
 ---
 
 ## CPU Processing
