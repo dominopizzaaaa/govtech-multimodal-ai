@@ -251,6 +251,10 @@ git pull origin main
 }```
 
 6. Receive API response:
+  - Below are images of outputs that I ran:
+![Postman Screenshot](./data/result-postman.png)
+![Response Screenshot](./data/result-response.png)
+
   - Should receive a response like 
 ```
 {
@@ -259,6 +263,7 @@ git pull origin main
     "descrOfDevice": "trademark description"
 }
 ```
+
 ---
 ## Final thoughts
 This project has been an incredibly valuable learning experience, allowing me to apply and expand my knowledge in computer vision, AI model deployment, and multimodal data processing. While I wasn't entirely new to the concepts, having worked with YOLO for object detection and having previously researched OCR techniques, this was my first time implementing a full end-to-end AI pipeline for real-world trademark indexing.
