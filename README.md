@@ -238,15 +238,16 @@ git pull origin main
 
 4. Convert an image to Base64
   - Add the image to the folder
+  - You can also use the images that I retrieved randomly, they are all stored in the test_images folder
   - Copy and paste the path to that image into convert-to-base64.py
   - Run ```python convert-to-base64.py```
 
-4. Run the FastAPI Server
+5. Run the FastAPI Server
   - Mac: ```uvicorn src.app:app --host 0.0.0.0 --port 8000```
   - Windows: ```python -m uvicorn src.app:app --host 0.0.0.0 --port 8000```
   - This will start a FastAPI server on http://localhost:8000
 
-5. Test API with Postman
+6. Test API with Postman
   - Open Postman
   - Create new POST request to: ```http://localhost:8000/invoke```
   - In body tab, select raw and JSON format
@@ -258,7 +259,7 @@ git pull origin main
     ]
 }```
 
-6. Receive API response:
+7. Receive API response:
   - Below are images of outputs that I ran:
 ![Postman Screenshot](./data/result-postman.png)
 ![Response Screenshot](./data/result-response.png)
