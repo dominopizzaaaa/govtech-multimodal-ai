@@ -206,9 +206,7 @@ Since I did not have a local GPU, I used the Hugging Face API to run InternVL2 r
 
 ## How to run on your computer
 
-This project has 2 versions:
-- GPU-Processing Branch (gpu-processing): Designed to run on Hugging Face API (for users without a local GPU).
-- Main Branch (main): Optimized for running on a local GPU using lmdeploy.
+This project has 3 branches as mentioned in the intro. 
 
 Since the technical requirements said that I cannot use an external API, the main is for submission
 
