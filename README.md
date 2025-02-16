@@ -239,6 +239,7 @@ git pull origin main
 4. Convert image(s) to Base64
   - Add the image(s) to the folder
   - You can also use the images that I retrieved randomly, they are all stored in the test_images folder
+  - Alternatively, you can use the trial_input.txt that I have added to the folder which already contains 3 images converted to base64 already
   - Copy and paste the path to the image(s) into convert-to-base64.py
   - Run ```python convert-to-base64.py``` to get base64, then input them into Postman as per in point 6
 
