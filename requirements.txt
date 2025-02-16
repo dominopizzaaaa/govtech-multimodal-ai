@@ -9,7 +9,7 @@ opencv-python>=4.11.0.86
 numpy>=2.1.2
 
 # InternVL2 specific dependencies
-lmdeploy[all]
+lmdeploy[all]>=0.1.0
 sentencepiece
 accelerate
 safetensors>=0.5.2
