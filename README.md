@@ -5,9 +5,10 @@ I started this project to explore multimodal AI processing for extracting text f
 
 To improve accuracy, I researched different CPU and GPU-based models to process images and extract text. This repository contains my journey through different approaches.
 
+I will first discuss CPU processing, then GPU
 ---
 
-## 1. My Initial Approach: CPU Processing
+## CPU Processing
 At first, I wanted to test image OCR using only CPU resources. Since my laptop does not have a GPU, I looked for efficient methods to extract text without requiring heavy computation.
 
 ### Steps I Took
@@ -29,7 +30,7 @@ As seen, using deepseek works, so i tried to incorporate deepseek into my model.
 - Third try (Forgot that I had to account for chinese charcters too (brew install tesseract-lang)): 15/28 no change
 ---
 
-## 2. My Next Step: GPU-Based Processing
+## GPU-Based Processing
 Since CPU-based OCR was not sufficient, I researched models that use GPU acceleration for better text extraction. I came across InternVL2 and found that it excels in multimodal vision-language tasks.
 
 ### Why I Chose InternVL2
