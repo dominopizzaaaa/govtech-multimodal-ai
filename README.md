@@ -309,7 +309,3 @@ At first, I attempted to query trademark data sequentially, but this was too slo
 During my time at Certis Technology, I was first introduced to computer vision (CV), and I found it incredibly intriguing. At that point, I was still in my first year of university and had not yet decided on a specialization. However, now that I am completing my second year and will be moving into my third year in July, I have made the decision to specialize in Artificial Intelligence (AI).
 
 This 4-day project further solidified my passion for computer vision. As I worked on implementing AI-based trademark indexing, I was amazed by how advanced the technology is, especially its ability to accurately extract and process text from images with such precision. The experience of working hands-on with InternVL2, OCR models, and GPU acceleration has deepened my interest, and I now want to explore computer vision further by taking related modules in school.
-
-Beyond academics, I am eager to apply my skills in a real-world setting, and GovTech provides the perfect environment to do so. The opportunity to work on AI and computer vision projects at GovTech excites me because it will allow me to continue learning on the job while expanding my technical expertise in CV and AI through formal education.
-
-I really hope I have the opportunity to join this department in GovTech to contribute and learn as much as possible to the team!
